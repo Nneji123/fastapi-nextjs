@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from api.public.towns.routes import towns
 
-router = APIRouter()
+townrouter = APIRouter()
 
-router.include_router(towns.router, prefix="/towns")
+townrouter.include_router(towns.router, prefix="/towns")
