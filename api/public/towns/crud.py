@@ -26,10 +26,9 @@ async def get_town(db: Session, town_id: int) -> Optional[Town]:
     :param town_id: int: Filter the town by id
     :return: An object of the town class
     """
-    town = await db.execute(select(Town).where(Town.id == town_id))
-    result = town.scalar_one_or_none()
+    town = (await db.execute(select(Town).where(Town.id == town_id))).first()
     print(result)
-    return result
+    return town
     
 
 async def get_towns(db: Session, skip: int = 0, limit: int = 10) -> List[Town]:
