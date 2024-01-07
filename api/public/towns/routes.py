@@ -19,7 +19,7 @@ async def create_new_town(town: TownCreate, db: Session = Depends(get_db)):
         return JSONResponse(content={"status": "error", "msg": f"Failed to create town: {str(e)}"}, status_code=500)
 
 
-@router.get("/{town_id}", response_model=TownRead) # Change townreadwithpeople
+@router.get("/{town_id}", response_model=TownReadWithPeople) # Change townreadwithpeople
 async def get_single_town(town_id: int, db: Session = Depends(get_db)):
     town = await get_town(db, town_id)
     if town is None:
