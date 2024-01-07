@@ -1,3 +1,5 @@
+.venv/
+.vscode/
 tests/
 .idea/
 database.db/
