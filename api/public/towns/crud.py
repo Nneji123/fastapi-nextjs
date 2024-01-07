@@ -27,7 +27,7 @@ async def get_town(db: Session, town_id: int) -> Optional[Town]:
     :return: An object of the town class
     """
     query = select(Town).where(Town.id == town_id)
-    return await db.exec(query).first()
+    return await db.execute(query).first()
 
 async def get_towns(db: Session, skip: int = 0, limit: int = 10) -> List[Town]:
     """
@@ -39,7 +39,8 @@ async def get_towns(db: Session, skip: int = 0, limit: int = 10) -> List[Town]:
     :return: A list of town objects
     """
     query = select(Town).offset(skip).limit(limit)
-    return await db.exec(query).all()
+    result = await db.execute(query)
+    return result.scalars().all()
 
 
 async def update_town(db: Session, town: Town, updated_town: TownUpdate) -> Town:
@@ -67,7 +68,7 @@ async def delete_town(db: Session, town_id: int) -> Town:
     :param town_id: int: Specify which town to delete
     :return: The deleted town
     """
-    town = db.exec(select(Town).where(Town.id == town_id)).first()
+    town = db.execute(select(Town).where(Town.id == town_id)).first()
     db.delete(town)
     await db.commit()
-    return town
+    return town.scalars().all()

@@ -1,3 +1,4 @@
+aiosqlite==0.19.0
 alembic==1.13.1
 annotated-types==0.6.0
 anyio==4.2.0
@@ -27,6 +28,7 @@ pipreqs==0.4.13
 platformdirs==4.1.0
 pyasn1==0.5.1
 pydantic==2.5.3
+pydantic-settings==2.1.0
 pydantic_core==2.14.6
 python-dotenv==1.0.0
 python-jose==3.3.0
