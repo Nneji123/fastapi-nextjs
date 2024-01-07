@@ -61,5 +61,5 @@ Pagination using FastAPI-Pagination is yet to be implemented.
 Feel free to contribute by opening issues or creating pull requests. 
 
 ## License
-This project is licensed under the [License Name] - see the [LICENSE.md](link) file for details.
+This project is licensed under the [MIT LICENSE] - see the [LICENSE](./LICENSE) file for details.
 
