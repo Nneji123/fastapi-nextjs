@@ -27,7 +27,7 @@ async def get_town(db: Session, town_id: int) -> Optional[Town]:
     :return: An object of the town class
     """
     town = (await db.execute(select(Town).where(Town.id == town_id))).first()
-    print(result)
+    print(town)
     return town
     
 
@@ -70,9 +70,8 @@ async def delete_town(db: Session, town_id: int):
     :param town_id: int: Specify which town to delete
     :return: The deleted town
     """
-    town = await db.execute(select(Town).where(Town.id == town_id))
-    result = town.scalar_one_or_none()
-    if result:
-        db.delete(result)
+    town = (await db.execute(select(Town).where(Town.id == town_id))).first()
+    if town:
+        await db.delete(town)
         await db.commit()
-    return result
+    return town
