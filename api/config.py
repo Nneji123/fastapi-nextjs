@@ -19,6 +19,9 @@ class Settings(BaseSettings):
         case_sensitive = True
 
 class TestSettings(Settings):
+
+    DATABASE_URI: str= os.getenv("TEST_DATABASE_URI","sqlite+aiosqlite://")
+
     class Config:
         case_sensitive = True
 
