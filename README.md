@@ -55,7 +55,8 @@ Pagination using FastAPI-Pagination is yet to be implemented.
 9. [ ] Implement either Propelauth or FastAPI-Auth0 for authentication
 10. [ ] Implement rate limiting
 11. [ ] Allow CORS
-12. [x] Write Docker and Docker Compose files for production deployment
+12. [x] Write Docker and Docker Compose files for production deployment.
+13. [] Replace current linter with "ruff".
 
 ## Contribution
 Feel free to contribute by opening issues or creating pull requests. 
