@@ -1,7 +1,12 @@
 """App helper functions"""
+import os
 
-
-
+origins = [
+    "http://localhost.tiangolo.com",
+    "https://localhost.tiangolo.com",
+    "http://localhost",
+    "http://localhost:8080",
+]
 
 
 lable_lang_mapping = {"Plain JS": "JavaScript", "NodeJS": "JavaScript"}

@@ -16,6 +16,7 @@ async def get_person(db: Session, person_id: int) -> Optional[Person]:
     result = await db.execute(query)
     return result.scalars().all()
 
+
 async def get_people(db: Session, skip: int = 0, limit: int = 10) -> List[Person]:
     query = select(Person).offset(skip).limit(limit)
     result = await db.execute(query)
@@ -32,7 +33,7 @@ async def update_person(db: Session, person: Person, updated_person: PersonUpdat
 
 
 async def delete_person(db: Session, person_id: int) -> Person:
-    person = await db.execute(select(Person).where(Person.id == person_id)).first()
-    db.delete(person)
+    person = await db.execute(select(Person).where(Person.id == person_id))
+    db.delete(person.scalar_one())
     await db.commit()
-    return person.scalars().all()
+    return person.scalar_one()

@@ -6,6 +6,7 @@ if TYPE_CHECKING:
 
 class PersonBase(SQLModel):
     name: str = Field(index=True, unique=True)
+    gender: Optional[str] = Field(index=True)
     age: Optional[int] = Field(default=None, index=True)
     town_id: Optional[int] = Field(default=None, foreign_key="town.id")
 

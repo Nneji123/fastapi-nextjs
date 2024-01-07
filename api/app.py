@@ -2,27 +2,15 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.openapi.utils import get_openapi
-import os
 from sqlalchemy.exc import IntegrityError
 
 from api.config import Settings
 from api.database import create_db_and_tables, create_town_and_people
-from api.public.towns.urls import town_router
-from api.public.people.urls import people_router
+from api.public.routes import public_router
 
 
 from api.database import create_db_and_tables, create_town_and_people, get_db
 from api.utils import *
-
-
-
-origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
-    "http://localhost",
-    "http://localhost:8080",
-]
 
 
 @asynccontextmanager
@@ -49,13 +37,13 @@ def create_app(settings: Settings):
     # app.openapi = custom_openapi(app)
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"], 
+        allow_origins=["*"],
         # origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
     )
-    app.include_router(town_router)
-    app.include_router(people_router)
+    app.include_router(public_router)
+
 
     return app
