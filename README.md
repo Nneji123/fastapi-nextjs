@@ -56,8 +56,8 @@ Pagination using FastAPI-Pagination is yet to be implemented.
 10. [ ] Implement rate limiting
 11. [ ] Allow CORS
 12. [x] Write Docker and Docker Compose files for production deployment.
-13. [] Replace current linter with "ruff".
-14. [] Use bookmark to add code samples and change logo. generate logo with bing 
+13. [ ] Replace current linter with "ruff".
+14. [ ] Use bookmark to add code samples and change logo. generate logo with bing 
 
 ## Contribution
 Feel free to contribute by opening issues or creating pull requests. 
