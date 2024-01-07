@@ -1,15 +1,65 @@
-# Project Initialized
-to do:
+# SQLModel FastAPI Project
 
-1. Add pagination using fastapi-pagination
-2. Write test cases for all routes and functions in public model - use in memory database
-3. Add GitHub actions template for running tests
-4. Write makefile
-5. Remove unnecessary files
-6. abstract routes to public routes.py file
-7. improve public routes Api documentation
-8. add alembic support for database migrations.
-9. Use either propelauthbof fastapi-auth0
-10. Add ratelimiter
-11. Allow cors
-12. write docker and docker compose files
+## Overview
+This project utilizes FastAPI along with SQLModel, Asyncpg, SQLAlchemy, FastAPI-Limiter, FastAPI-Pagination, Docker, Docker Compose, Makefile, and Pytest for automated testing. It's deployed on Render using Docker.
+
+## Features
+- Feature 1: Description of feature 1
+- Feature 2: Description of feature 2
+- ...
+
+## Setup
+
+### Cloning and Environment Setup
+1. Clone the repository: `git clone https://github.com/yourusername/yourproject.git`
+2. Navigate to the project directory: `cd yourproject`
+3. Create and activate a virtual environment:
+   - Using `venv`: `python3 -m venv env && source env/bin/activate`
+   - Using `conda`: `conda create --name envname python=3.8 && conda activate envname`
+4. Install dependencies: `pip install -r requirements.txt`
+
+### Running the Project Using Python API/ASGI
+1. Ensure you are in the project directory.
+2. Run the FastAPI application: `python api/asgi.py`
+3. Access the API at `http://localhost:8000`
+
+### Running the Project Using Docker
+1. Ensure Docker and Docker Compose are installed.
+2. Navigate to the project directory: `cd yourproject`
+3. Build and start the containers: `docker-compose up --build`
+4. Access the API at `http://localhost:8000`
+
+## Usage
+
+### Endpoints
+- **Endpoint 1**: Description of endpoint 1
+- **Endpoint 2**: Description of endpoint 2
+- ...
+
+### Pagination
+Pagination using FastAPI-Pagination is yet to be implemented.
+
+### Testing
+1. To run tests with in-memory SQLite database: `pytest`
+2. Check coverage with: `pytest --cov=yourmodule`
+
+## To-Do
+1. [ ] Add pagination using FastAPI-Pagination
+2. [ ] Write test cases for all routes and functions in the public model using an in-memory database
+3. [ ] Add GitHub Actions template for running tests
+4. [ ] Write Makefile for easier project management
+5. [ ] Remove unnecessary files
+6. [ ] Abstract routes to a `public_routes.py` file
+7. [ ] Improve documentation for public routes API
+8. [ ] Add Alembic support for database migrations
+9. [ ] Implement either Propelauthbof or FastAPI-Auth0 for authentication
+10. [ ] Implement rate limiting
+11. [ ] Allow CORS
+12. [ ] Write Docker and Docker Compose files for production deployment
+
+## Contribution
+Feel free to contribute by opening issues or creating pull requests. 
+
+## License
+This project is licensed under the [License Name] - see the [LICENSE.md](link) file for details.
+
