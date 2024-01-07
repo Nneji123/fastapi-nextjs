@@ -1,0 +1,4 @@
+tests/
+.idea/
+database.db/
+.gitpod.yml
