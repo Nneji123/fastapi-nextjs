@@ -1,9 +1,9 @@
 from typing import Optional, List
-from sqlmodel import Session
+from sqlmodel import Session, select
 from api.public.towns.models import Town, TownCreate, TownUpdate
 
 
-def create_town(db: Session, town: TownCreate) -> Town:
+async def create_town(db: Session, town: TownCreate) -> Town:
     """
     The create_town function creates a new town in the database.
 
@@ -13,12 +13,12 @@ def create_town(db: Session, town: TownCreate) -> Town:
     """
     db_town = Town(**town.model_dump())
     db.add(db_town)
-    db.commit()
-    db.refresh(db_town)
+    await db.commit()
+    await db.refresh(db_town)
     return db_town
 
 
-def get_town(db: Session, town_id: int) -> Optional[Town]:
+async def get_town(db: Session, town_id: int) -> Optional[Town]:
     """
     The get_town function returns a town object from the database.
 
@@ -26,10 +26,10 @@ def get_town(db: Session, town_id: int) -> Optional[Town]:
     :param town_id: int: Filter the town by id
     :return: An object of the town class
     """
-    return db.exec(Town).filter(Town.id == town_id).first()
+    query = select(Town).where(Town.id == town_id)
+    return await db.exec(query).first()
 
-
-def get_towns(db: Session, skip: int = 0, limit: int = 10) -> List[Town]:
+async def get_towns(db: Session, skip: int = 0, limit: int = 10) -> List[Town]:
     """
     The get_towns function returns a list of towns from the database.
 
@@ -38,10 +38,11 @@ def get_towns(db: Session, skip: int = 0, limit: int = 10) -> List[Town]:
     :param limit: int: Limit the number of results returned
     :return: A list of town objects
     """
-    return db.exec(Town).offset(skip).limit(limit).all()
+    query = select(Town).offset(skip).limit(limit)
+    return await db.exec(query).all()
 
 
-def update_town(db: Session, town: Town, updated_town: TownUpdate) -> Town:
+async def update_town(db: Session, town: Town, updated_town: TownUpdate) -> Town:
     """
     The update_town function updates a town in the database.
 
@@ -53,12 +54,12 @@ def update_town(db: Session, town: Town, updated_town: TownUpdate) -> Town:
     for key, value in updated_town.model_dump(exclude_unset=True).items():
         setattr(town, key, value)
     db.add(town)
-    db.commit()
-    db.refresh(town)
+    await db.commit()
+    await db.refresh(town)
     return town
 
 
-def delete_town(db: Session, town_id: int) -> Town:
+async def delete_town(db: Session, town_id: int) -> Town:
     """
     The delete_town function deletes a town from the database.
 
@@ -66,7 +67,7 @@ def delete_town(db: Session, town_id: int) -> Town:
     :param town_id: int: Specify which town to delete
     :return: The deleted town
     """
-    town = db.exec(Town).filter(Town.id == town_id).first()
+    town = db.exec(select(Town).where(Town.id == town_id)).first()
     db.delete(town)
-    db.commit()
+    await db.commit()
     return town
