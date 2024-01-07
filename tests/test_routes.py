@@ -3,6 +3,7 @@
 import pytest
 from fastapi.testclient import TestClient
 from api.app import app
+from api.config import test_settings 
 from api.database import create_db_and_tables, get_db
 from api.public.towns.crud import create_town, get_town
 from databases import Database
@@ -11,18 +12,17 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 from typing import AsyncGenerator
 
-DATABASE_URL = "sqlite+aiosqlite://"
 
 @pytest.fixture(scope="module")
 async def db() -> AsyncGenerator:
     # Create an in-memory SQLite database
-    async_engine = create_async_engine(DATABASE_URL, echo=True)
+    async_engine = create_async_engine(test_settings.DATABASE_URI, echo=True)
     async_session = sessionmaker(
         bind=async_engine,
         class_=AsyncSession,
         expire_on_commit=False
     )
-    database = Database(DATABASE_URL)
+    database = Database(test_settings.DATABASE_URI)
 
     # Create the database tables
     await database.connect()
