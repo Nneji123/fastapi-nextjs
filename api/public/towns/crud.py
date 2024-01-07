@@ -72,6 +72,6 @@ async def delete_town(db: Session, town_id: int):
     """
     town = (await db.execute(select(Town).where(Town.id == town_id))).first()
     if town:
-        await db.delete(town)
+        db.delete(town)
         await db.commit()
     return town
