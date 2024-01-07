@@ -17,6 +17,4 @@ COPY . /app/
 EXPOSE 8090
 
 # Run Uvicorn when the container launches
-# CMD ["uvicorn", "api.asgi:api", "--host", "0.0.0.0", "--port", "8090", "--reload"]
-
 CMD ["python", "api/asgi.py"]
