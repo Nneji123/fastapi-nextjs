@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.exc import IntegrityError
 
 from api.config import Settings
@@ -10,6 +11,16 @@ from api.public.people.urls import people_router
 
 
 from api.database import create_db_and_tables, create_town_and_people, get_db
+
+
+
+origins = [
+    "http://localhost.tiangolo.com",
+    "https://localhost.tiangolo.com",
+    "http://localhost",
+    "http://localhost:8080",
+]
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -31,6 +42,13 @@ def create_app(settings: Settings):
         docs_url="/docs",
         description=settings.DESCRIPTION,
         lifespan=lifespan,
+    )
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
     )
     app.include_router(town_router)
     app.include_router(people_router)
