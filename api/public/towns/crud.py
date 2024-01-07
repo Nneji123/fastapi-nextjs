@@ -63,7 +63,7 @@ async def update_town(db: Session, town: Town, updated_town: TownUpdate) -> Town
     return town
 
 
-async def delete_town(db: Session, town_id: int) -> Town:
+async def delete_town(db: Session, town_id: int):
     """
     The delete_town function deletes a town from the database.
 
@@ -71,8 +71,9 @@ async def delete_town(db: Session, town_id: int) -> Town:
     :param town_id: int: Specify which town to delete
     :return: The deleted town
     """
-    town = db.execute(select(Town).where(Town.id == town_id))
+    town = await db.execute(select(Town).where(Town.id == town_id))
     result = town.scalar_one_or_none()
-    db.delete(result)
-    await db.commit()
-    return town.scalars().all()
+    if result:
+        db.delete(result)
+        await db.commit()
+    return result
