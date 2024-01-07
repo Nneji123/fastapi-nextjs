@@ -10,7 +10,7 @@ from api.public.towns.models import TownCreate, TownRead, TownUpdate, TownReadWi
 router = APIRouter()
 
 
-@router.post("/", response_model=TownRead)
+@router.post("/", openapi_extra={"x-codeSamples": [{"lang": "Python", "source": "print('FastAPI!')", "label": "Python"}]}, response_model=TownRead)
 async def create_new_town(town: TownCreate, db: Session = Depends(get_db)):
     try:
         created_town = await create_town(db, town)
