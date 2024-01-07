@@ -46,20 +46,20 @@ Pagination using FastAPI-Pagination is yet to be implemented.
 ## To-Do
 1. [ ] Add pagination using FastAPI-Pagination
 2. [ ] Write test cases for all routes and functions in the public model using an in-memory database
-3. [ ] Add GitHub Actions template for running tests
-4. [ ] Write Makefile for easier project management
-5. [ ] Remove unnecessary files
+3. [x] Add GitHub Actions template for running tests
+4. [x] Write Makefile for easier project management
+5. [x] Remove unnecessary files
 6. [ ] Abstract routes to a `public_routes.py` file
 7. [ ] Improve documentation for public routes API
 8. [ ] Add Alembic support for database migrations
-9. [ ] Implement either Propelauthbof or FastAPI-Auth0 for authentication
+9. [ ] Implement either Propelauth or FastAPI-Auth0 for authentication
 10. [ ] Implement rate limiting
 11. [ ] Allow CORS
-12. [ ] Write Docker and Docker Compose files for production deployment
+12. [x] Write Docker and Docker Compose files for production deployment
 
 ## Contribution
 Feel free to contribute by opening issues or creating pull requests. 
 
 ## License
-This project is licensed under the [MIT LICENSE] - see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the MIT LICENSE - see the [LICENSE](./LICENSE) file for details.
 
