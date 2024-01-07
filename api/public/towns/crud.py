@@ -70,8 +70,10 @@ async def delete_town(db: Session, town_id: int):
     :param town_id: int: Specify which town to delete
     :return: The deleted town
     """
-    town = (await db.execute(select(Town).where(Town.id == town_id))).first()
-    if town:
-        db.delete(town)
-        await db.commit()
+        
+    query = (await db.execute(select(Town).where(Town.id == town_id))).first()
+    town = query.scalar_one()
+    # if town:
+    await db.delete(town)
+    await db.commit()
     return town
