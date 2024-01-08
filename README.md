@@ -59,6 +59,8 @@ Pagination using FastAPI-Pagination is yet to be implemented.
 13. [ ] Replace current linter with "ruff".
 14. [ ] Use bookmark to add code samples and change logo. generate logo with bing
 15. [ ] Create a new branch and remove async functionality for ease of use.
+16. [ ] Create a frontend with nextjs/reactjs showing how to use Kinde-auth with fastapi
+
 
 ## Contribution
 Feel free to contribute by opening issues or creating pull requests.
