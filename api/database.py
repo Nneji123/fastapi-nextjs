@@ -38,8 +38,8 @@ def create_town_and_people(db: Session):
 
     # Create people
     people_data = [
-        {"name": "Alice", "age": 30, "town_id": created_towns[0].id},
-        {"name": "Bob", "age": 25, "town_id": created_towns[1].id},
+        {"name": "Alice", "age": 30, "gender": "female", "town_id": created_towns[0].id},
+        {"name": "Bob", "age": 25, "gender": "male", "town_id": created_towns[1].id},
         # Assign people to towns created above, adjust town_id as needed
     ]
 

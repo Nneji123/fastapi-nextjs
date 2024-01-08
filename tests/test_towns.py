@@ -103,7 +103,7 @@ def test_update_existing_town(test_app):
         "country": "Updated Country",
     }
     response = client.put("/towns/1", json=town_update_data)
-    assert response.status_code == 404
+    assert response.status_code == 200
     assert isinstance(response.json(), TownRead) == False
 
 
@@ -114,4 +114,4 @@ def test_delete_existing_town(test_app):
 
     # Assuming town with ID=1 exists in the database
     response = client.delete("/towns/1")
-    assert response.status_code == 500
+    assert response.status_code == 200
