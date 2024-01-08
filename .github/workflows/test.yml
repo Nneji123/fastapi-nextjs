@@ -20,6 +20,5 @@ jobs:
       - name: Run Tests      
         run: |
           echo "${{ secrets.ENV_FILE }}" > .env
-          pip install -r api/requirements.txt \
-          python api/init_db.py
+          pip install -r api/requirements.txt && python api/init_db.py
           pytest test/test_towns.py 
