@@ -12,7 +12,7 @@ jobs:
       with:
         python-version: '3.11'
     - name: Install requirements
-      run: pip install -r api/requirements.txt &&& python api/init_db.py
+      run: pip install -r api/requirements.txt && python api/init_db.py
 
     - name: Run tests and collect coverage
       run: pytest --cov=api.public.towns.routes tests/test_towns.py --cov-report=xml
