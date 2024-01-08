@@ -58,6 +58,7 @@ Pagination using FastAPI-Pagination is yet to be implemented.
 12. [x] Write Docker and Docker Compose files for production deployment.
 13. [ ] Replace current linter with "ruff".
 14. [ ] Use bookmark to add code samples and change logo. generate logo with bing
+15. [ ] Create a new branch and remove async functionality for ease of use.
 
 ## Contribution
 Feel free to contribute by opening issues or creating pull requests.
