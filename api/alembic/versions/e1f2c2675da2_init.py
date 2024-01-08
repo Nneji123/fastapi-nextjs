@@ -1,8 +1,8 @@
-"""added gender to people table
+"""init
 
-Revision ID: 19337525c1f2
-Revises: 00266ad7263a
-Create Date: 2024-01-08 00:47:59.867233
+Revision ID: e1f2c2675da2
+Revises: 059fcd0d080b
+Create Date: 2024-01-08 10:38:09.188973
 
 """
 from typing import Sequence, Union
@@ -13,8 +13,8 @@ import sqlmodel
 
 
 # revision identifiers, used by Alembic.
-revision: str = '19337525c1f2'
-down_revision: Union[str, None] = '00266ad7263a'
+revision: str = 'e1f2c2675da2'
+down_revision: Union[str, None] = '059fcd0d080b'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 

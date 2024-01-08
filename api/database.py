@@ -1,37 +1,29 @@
-from sqlmodel import Session, SQLModel, create_engine
-from sqlmodel.ext.asyncio import session
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
+from sqlmodel import Session, SQLModel, create_engine
+from sqlmodel.ext.asyncio import session
 
-from sqlalchemy.orm import sessionmaker
-from api.public.people.crud import create_person
-from api.public.towns.crud import create_town
-from api.public.people.models import PersonCreate
-from api.public.towns.models import TownCreate
 from api.config import settings
+from api.public.people.crud import create_person
+from api.public.people.models import PersonCreate
+from api.public.towns.crud import create_town
+from api.public.towns.models import TownCreate
 
 connect_args = {"check_same_thread": False}
-async_engine = create_async_engine(settings.DATABASE_URI)
+engine = create_engine(settings.DATABASE_URI, echo=False, connect_args=connect_args)
 
-# Create an asynchronous sessionmaker
-async_session = sessionmaker(
-    bind=async_engine,
-    class_=AsyncSession,
-    expire_on_commit=False
-)
 
-async def get_db() -> AsyncSession:
-    async with async_session() as session:
+def create_db_and_tables():
+    SQLModel.metadata.create_all(engine)
+
+
+def get_db():
+    with Session(engine) as session:
         yield session
 
-async def create_db_and_tables():
-    async with async_engine.begin() as conn:
-        await conn.run_sync(SQLModel.metadata.create_all)
 
 
-
-
-async def create_town_and_people(db: Session):
+def create_town_and_people(db: Session):
     # Create towns
     town_data = [
         {"name": "Town A", "population": 10000, "country": "Country A"},
@@ -42,7 +34,7 @@ async def create_town_and_people(db: Session):
     created_towns = []
     for town_info in town_data:
         town = TownCreate(**town_info)
-        created_town = await create_town(db, town)
+        created_town = create_town(db, town)
         created_towns.append(created_town)
 
     # Create people
@@ -55,7 +47,7 @@ async def create_town_and_people(db: Session):
     created_people = []
     for person_info in people_data:
         person = PersonCreate(**person_info)
-        created_person = await create_person(db, person)
+        created_person = create_person(db, person)
         created_people.append(created_person)
 
     return created_towns, created_people

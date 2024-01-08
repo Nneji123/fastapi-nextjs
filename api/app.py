@@ -16,15 +16,20 @@ from api.utils import *
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    async for db in get_db():  # Iterating over the asynchronous generator
-        await create_db_and_tables()
+    db = next(get_db())  # Fetching the database session
+    create_db_and_tables()
 
-        try:
-            await create_town_and_people(db)
-            yield
-        except IntegrityError as e:
-            # Perform any cleanup or teardown operations if needed
-            yield
+    try:
+        create_town_and_people(db)
+        yield
+    except (IntegrityError, Exception) as e:
+        # Perform any cleanup or teardown operations if needed
+        yield
+
+    # # Proceed with the rest of your code
+    # async with self.lifespan_context(app) as maybe_state:
+    #     # Other operations within the lifespan context
+    #     pass
 
 
 def create_app(settings: Settings):
