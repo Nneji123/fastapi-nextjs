@@ -5,6 +5,10 @@ from typing import Literal
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+def load_env():
+    from dotenv import load_dotenv
+    env_path = "../.env"
+    load_dotenv(env_path)
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = f"Webscraper API - {os.getenv('ENV', 'development').capitalize()}"
@@ -26,13 +30,5 @@ class TestSettings(Settings):
         case_sensitive = True
 
 
-
-def load_env():
-    from dotenv import load_dotenv
-    env_path = "../.env"
-    load_dotenv(env_path)
-
-
-load_env()
 settings = Settings()
 test_settings = TestSettings()
