@@ -1,4 +1,10 @@
 # SQLModel FastAPI Project
+[![codecov](https://codecov.io/gh/Nneji123/fastapi-webscraper/graph/badge.svg?token=UsIESnIqm6)](https://codecov.io/gh/Nneji123/fastapi-webscraper)
+
+[![Python Tests](https://github.com/Nneji123/fastapi-webscraper/actions/workflows/test.yml/badge.svg)](https://github.com/Nneji123/fastapi-webscraper/actions/workflows/test.yml)
+
+[![Python Tests](https://github.com/Nneji123/fastapi-webscraper/actions/workflows/test.yml/badge.svg)](https://github.com/Nneji123/fastapi-webscraper/actions/workflows/test.yml)
+
 
 ## Overview
 This project utilizes FastAPI along with SQLModel, Asyncpg, SQLAlchemy, FastAPI-Limiter, FastAPI-Pagination, Docker, Docker Compose, Makefile, and Pytest for automated testing. It's deployed on Render using Docker.
