@@ -1,16 +1,10 @@
 from fastapi import APIRouter, Depends
+from fastapi_limiter.depends import RateLimiter
+
 
 from api.public.people.routes import router as peoplerouter
-
-# from api import auth
 from api.public.towns.routes import router as townrouter
 
-import redis.asyncio as redis
-import uvicorn
-from fastapi import Depends, FastAPI
-
-from fastapi_limiter import FastAPILimiter
-from fastapi_limiter.depends import RateLimiter
 
 public_router = APIRouter()
 
