@@ -1,5 +1,7 @@
-from typing import Optional, List
+from typing import List, Optional
+
 from sqlmodel import Session, select
+
 from api.public.people.models import Person, PersonCreate, PersonUpdate
 
 
@@ -19,6 +21,7 @@ def get_person(db: Session, person_id: int) -> Optional[Person]:
 def get_people(db: Session, skip: int = 0, limit: int = 10) -> List[Person]:
     query = select(Person).offset(skip).limit(limit)
     return db.exec(query).all()
+
 
 def update_person(db: Session, person: Person, updated_person: PersonUpdate) -> Person:
     for key, value in updated_person.model_dump(exclude_unset=True).items():

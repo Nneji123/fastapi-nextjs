@@ -22,7 +22,6 @@ def get_db():
         yield session
 
 
-
 def create_town_and_people(db: Session):
     # Create towns
     town_data = [
@@ -51,4 +50,3 @@ def create_town_and_people(db: Session):
         created_people.append(created_person)
 
     return created_towns, created_people
-

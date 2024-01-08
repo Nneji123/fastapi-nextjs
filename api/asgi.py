@@ -1,6 +1,7 @@
-import uvicorn
-from pathlib import Path
 import sys
+from pathlib import Path
+
+import uvicorn
 
 # Get the absolute path of the directory containing this script
 current_file = Path(__file__).resolve()
