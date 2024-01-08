@@ -2,6 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 from sqlmodel import Session, SQLModel, create_engine
 from sqlmodel.ext.asyncio import session
+from sqlalchemy.exc import IntegrityError
 
 import sys
 from pathlib import Path
@@ -23,4 +24,7 @@ def create_database_for_tests():
         create_town_and_people(db)
     except (IntegrityError, Exception) as e:
         # Perform any cleanup or teardown operations if needed
+        print(e)
         pass
+
+create_database_for_tests()
