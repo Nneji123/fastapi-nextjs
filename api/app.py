@@ -1,30 +1,45 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
-from fastapi.openapi.utils import get_openapi
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.openapi.utils import get_openapi
 from sqlalchemy.exc import IntegrityError
 
 from api.config import Settings
-from api.database import create_db_and_tables, create_town_and_people
-from api.public.routes import public_router
-
-
 from api.database import create_db_and_tables, create_town_and_people, get_db
+from api.public.routes import public_router
 from api.utils import *
 
+import redis.asyncio as redis
+import uvicorn
+from fastapi import Depends, FastAPI
+from dotenv import load_dotenv
+import os
+from fastapi_limiter import FastAPILimiter
+from fastapi_limiter.depends import RateLimiter
+
+env_path = "../.env"
+load_dotenv(env_path)
+
+REDIS_ENV = os.getenv("REDIS_DATABASE" ,"redis://default:Wls41vwKwXF5zuASsqoDG0mrwJHq82Pz@redis-14078.c325.us-east-1-4.ec2.cloud.redislabs.com:14078")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    async for db in get_db():  # Iterating over the asynchronous generator
-        await create_db_and_tables()
+    db = next(get_db())  # Fetching the database session
+    create_db_and_tables()
+    redis_connection= redis.from_url(REDIS_ENV, encoding="utf-8", decode_responses=True)
+    await FastAPILimiter.init(redis_connection)
+    try:
+        create_town_and_people(db)
+        yield
+    except (IntegrityError, Exception) as e:
+        # Perform any cleanup or teardown operations if needed
+        yield
 
-        try:
-            await create_town_and_people(db)
-            yield
-        except IntegrityError as e:
-            # Perform any cleanup or teardown operations if needed
-            yield
+    # # Proceed with the rest of your code
+    # async with self.lifespan_context(app) as maybe_state:
+    #     # Other operations within the lifespan context
+    #     pass
 
 
 def create_app(settings: Settings):
@@ -34,7 +49,6 @@ def create_app(settings: Settings):
         docs_url="/docs",
         description=settings.DESCRIPTION,
         lifespan=lifespan,
-
     )
 
     app.add_middleware(

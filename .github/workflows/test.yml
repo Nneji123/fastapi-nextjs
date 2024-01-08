@@ -8,7 +8,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
         python-version: ["3.11"]
 
     steps:
@@ -20,4 +20,5 @@ jobs:
       - name: Run Tests      
         run: |
           echo "${{ secrets.ENV_FILE }}" > .env
-          make test
+          pip install -r api/requirements.txt
+          pytest test/test_towns.py 

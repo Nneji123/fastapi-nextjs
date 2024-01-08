@@ -50,15 +50,15 @@ Pagination using FastAPI-Pagination is yet to be implemented.
 4. [x] Write Makefile for easier project management
 5. [x] Remove unnecessary files
 6. [x] Abstract routes to a `public_routes.py` file
-7. [ ] Improve documentation for public routes API
+7. [x] Improve documentation for public routes API
 8. [x] Add Alembic support for database migrations
 9. [ ] Implement either Propelauth or FastAPI-Auth0 for authentication
-10. [ ] Implement rate limiting
+10. [x] Implement rate limiting
 11. [x] Allow CORS
 12. [x] Write Docker and Docker Compose files for production deployment.
 13. [ ] Replace current linter with "ruff".
 14. [ ] Use bookmark to add code samples and change logo. generate logo with bing
-15. [ ] Create a new branch and remove async functionality for ease of use.
+15. [x] Create a new branch and remove async functionality for ease of use.
 16. [ ] Create a frontend with nextjs/reactjs showing how to use Kinde-auth with fastapi
 
 
