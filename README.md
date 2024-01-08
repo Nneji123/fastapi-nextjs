@@ -49,18 +49,18 @@ Pagination using FastAPI-Pagination is yet to be implemented.
 3. [x] Add GitHub Actions template for running tests
 4. [x] Write Makefile for easier project management
 5. [x] Remove unnecessary files
-6. [ ] Abstract routes to a `public_routes.py` file
+6. [x] Abstract routes to a `public_routes.py` file
 7. [ ] Improve documentation for public routes API
-8. [ ] Add Alembic support for database migrations
+8. [x] Add Alembic support for database migrations
 9. [ ] Implement either Propelauth or FastAPI-Auth0 for authentication
 10. [ ] Implement rate limiting
-11. [ ] Allow CORS
+11. [x] Allow CORS
 12. [x] Write Docker and Docker Compose files for production deployment.
 13. [ ] Replace current linter with "ruff".
-14. [ ] Use bookmark to add code samples and change logo. generate logo with bing 
+14. [ ] Use bookmark to add code samples and change logo. generate logo with bing
 
 ## Contribution
-Feel free to contribute by opening issues or creating pull requests. 
+Feel free to contribute by opening issues or creating pull requests.
 
 ## License
 This project is licensed under the MIT LICENSE - see the [LICENSE](./LICENSE) file for details.

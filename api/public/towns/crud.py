@@ -19,61 +19,22 @@ async def create_town(db: Session, town: TownCreate) -> Town:
 
 
 async def get_town(db: Session, town_id: int) -> Optional[Town]:
-    """
-    The get_town function returns a town object from the database.
-
-    :param db: Session: Pass the database session into the function
-    :param town_id: int: Filter the town by id
-    :return: An object of the town class
-    """
-    town = (await db.execute(select(Town).where(Town.id == town_id))).first()
-    print(town)
+    town = (await db.execute(select(Town.id, Town.name, Town.population, Town.country).where(Town.id == town_id))).first()
     return town
-    
+
 
 async def get_towns(db: Session, skip: int = 0, limit: int = 10) -> List[Town]:
-    """
-    The get_towns function returns a list of towns from the database.
-
-    :param db: Session: Pass the database session to the function
-    :param skip: int: Skip a number of rows in the database
-    :param limit: int: Limit the number of results returned
-    :return: A list of town objects
-    """
     query = select(Town).offset(skip).limit(limit)
     result = await db.execute(query)
     return result.scalars().all()
 
 
-async def update_town(db: Session, town: Town, updated_town: TownUpdate) -> Town:
-    """
-    The update_town function updates a town in the database.
-
-    :param db: Session: Pass in the database session
-    :param town: Town: Get the town that is being updated
-    :param updated_town: TownUpdate: Pass in the updated values of the town
-    :return: The updated town
-    """
-    for key, value in updated_town.model_dump(exclude_unset=True).items():
-        setattr(town, key, value)
-    db.add(town)
-    await db.commit()
-    await db.refresh(town)
-    return town
-
-
 async def delete_town(db: Session, town_id: int):
-    """
-    The delete_town function deletes a town from the database.
+    town = await db.execute(select(Town).where(Town.id == town_id))
+    town_to_delete = town.scalar_one_or_none()
 
-    :param db: Session: Connect to the database
-    :param town_id: int: Specify which town to delete
-    :return: The deleted town
-    """
-        
-    query = (await db.execute(select(Town).where(Town.id == town_id))).first()
-    town = query.scalar_one()
-    # if town:
-    await db.delete(town)
-    await db.commit()
-    return town
+    if town_to_delete:
+        await db.delete(town_to_delete)
+        await db.commit()
+
+    return town_to_delete

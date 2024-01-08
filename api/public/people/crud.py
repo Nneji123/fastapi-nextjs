@@ -12,9 +12,8 @@ async def create_person(db: Session, person: PersonCreate) -> Person:
 
 
 async def get_person(db: Session, person_id: int) -> Optional[Person]:
-    query = select(Person).where(Person.id == person_id)
-    result = await db.execute(query)
-    return result.scalars().all()
+    person = (await db.execute(select(Person.id, Person.name, Person.gender, Person.age, Person.town_id).where(Person.id == person_id))).first()
+    return person
 
 
 async def get_people(db: Session, skip: int = 0, limit: int = 10) -> List[Person]:
@@ -23,17 +22,12 @@ async def get_people(db: Session, skip: int = 0, limit: int = 10) -> List[Person
     return result.scalars().all()
 
 
-async def update_person(db: Session, person: Person, updated_person: PersonUpdate) -> Person:
-    for key, value in updated_person.model_dump(exclude_unset=True).items():
-        setattr(person, key, value)
-    db.add(person)
-    await db.commit()
-    await db.refresh(person)
-    return person
-
-
 async def delete_person(db: Session, person_id: int) -> Person:
     person = await db.execute(select(Person).where(Person.id == person_id))
-    db.delete(person.scalar_one())
-    await db.commit()
-    return person.scalar_one()
+    person_to_delete = person.scalar_one_or_none()
+
+    if person_to_delete:
+        await db.delete(person_to_delete)
+        await db.commit()
+
+    return person_to_delete

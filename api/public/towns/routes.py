@@ -1,11 +1,11 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from starlette.responses import JSONResponse
 from sqlalchemy.orm import Session
 from typing import List
 
 from api.database import get_db
-from api.public.towns.crud import create_town, get_town, get_towns, update_town, delete_town
-from api.public.towns.models import TownCreate, TownRead, TownUpdate, TownReadWithPeople
+from api.public.towns.crud import create_town, get_town, get_towns, delete_town
+from api.public.towns.models import TownCreate, TownRead, TownUpdate, TownReadWithPeople, Town
 
 router = APIRouter()
 
@@ -33,30 +33,28 @@ async def get_all_towns(skip: int = 0, limit: int = 10, db: Session = Depends(ge
 
 
 @router.put("/{town_id}", response_model=TownRead)
-async def update_existing_town(town_id: int, town: TownUpdate, db: Session = Depends(get_db)):
-    """
-    The update_existing_town function updates an existing town in the database.
+async def update_existing_town(town_id: int, town_update: TownUpdate, db: Session = Depends(get_db)):
+    existing_town = await db.get(Town, town_id)
+    if not existing_town:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Town not found with id: {town_id}",
+        )
 
-    :param town_id: int: Identify the town to be updated
-    :param town: TownUpdate: Pass in the new data for the town
-    :param db: Session: Pass the database session to the function
-    :return: The updated town object
-    """
-    existing_town = await get_town(db, town_id)
-    if existing_town is None:
-        raise HTTPException(status_code=404, detail="Town not found")
-    return await update_town(db, existing_town, town)
+    updated_values = town_update.model_dump(exclude_unset=True)
+    for key, value in updated_values.items():
+        setattr(existing_town, key, value)
+
+    db.add(existing_town)
+    await db.commit()
+    await db.refresh(existing_town)
+    return existing_town
 
 
 @router.delete("/{town_id}", response_model=TownRead)
 async def delete_existing_town(town_id: int, db: Session = Depends(get_db)):
     """
-    The delete_existing_town function deletes a town from the database.
-        It takes in an integer, town_id, and returns a boolean value indicating whether or not the deletion was successful.
-
-    :param town_id: int: Specify the id of the town to be deleted
-    :param db: Session: Pass in the database session
-    :return: The result of delete_town
+    Delete an existing town
     """
 
     delete_result = await delete_town(db, town_id)

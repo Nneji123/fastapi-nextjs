@@ -7,12 +7,14 @@ ISORT = $(VENV_NAME)/Scripts/isort
 
 .PHONY: setup test run lint
 
-setup: $(VENV_NAME)/Scripts/activate requirements.txt test/requirements.txt
+setup:
+    $(VENV_NAME)/Scripts/activate requirements.txt test/requirements.txt
     @echo "Setting up virtual environment and installing application requirements..."
     . $(VENV_NAME)/Scripts/activate; \
     $(PIP) install -r requirements.txt
 
-test-setup: $(VENV_NAME)/Scripts/activate test/requirements.txt
+test-setup:
+    $(VENV_NAME)/Scripts/activate test/requirements.txt
     @echo "Installing test requirements..."
     . $(VENV_NAME)/Scripts/activate; \
     $(PIP) install -r test/requirements.txt
@@ -38,3 +40,6 @@ lint: setup
     . $(VENV_NAME)/Scripts/activate; \
     $(BLACK) yourmodule; \
     $(ISORT) yourmodule
+
+# Default target
+all: venv activate install init start

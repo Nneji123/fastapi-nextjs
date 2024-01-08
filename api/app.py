@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.openapi.utils import get_openapi
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.exc import IntegrityError
 
@@ -33,8 +34,9 @@ def create_app(settings: Settings):
         docs_url="/docs",
         description=settings.DESCRIPTION,
         lifespan=lifespan,
+
     )
-    # app.openapi = custom_openapi(app)
+
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
@@ -42,8 +44,7 @@ def create_app(settings: Settings):
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
-    )
+    ),
     app.include_router(public_router)
-
 
     return app
