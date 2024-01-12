@@ -28,13 +28,13 @@ const TownData = () => {
 
   useEffect(() => {
     // Fetch town data from your FastAPI endpoint
-    fetch('https://fastapi-webscraper.onrender.com/towns/')
+    fetch('http://backend:8000/towns/')
       .then(response => response.json())
       .then(data => setTownData(data))
       .catch(error => console.error('Error fetching town data:', error));
 
     // Fetch people data from your FastAPI endpoint
-    fetch('https://fastapi-webscraper.onrender.com/people/')
+    fetch('http://backend:8000/people/')
       .then(response => response.json())
       .then(data => setPeopleData(data))
       .catch(error => console.error('Error fetching people data:', error));

@@ -1,7 +1,51 @@
-version: "3.8"
+version: '3.8'
 
 services:
-  web:
-    build: .
+  frontend:
+    build:
+      context: ./frontend  # Path to your Next.js frontend code
+      dockerfile: Dockerfile
     ports:
-      - "8090:8090"
+      - "3000:3000"  # Expose the Next.js development server port
+    depends_on:
+      - backend
+    networks:
+      - my-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - my-network
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/dbname  # Update with your PostgreSQL connection details
+      - REDIS_URL=redis://redis:6379/  # Update with your Redis connection details
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dbname
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - my-network
+
+  redis:
+    image: redis:latest
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  postgres-data:

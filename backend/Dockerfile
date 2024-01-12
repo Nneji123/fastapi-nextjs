@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app/
 
 # Expose the port that Uvicorn listens to
-EXPOSE 8090
+EXPOSE 8000
 
 # Run Uvicorn when the container launches
 CMD ["python", "api/asgi.py"]

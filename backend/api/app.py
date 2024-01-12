@@ -19,7 +19,7 @@ from fastapi_limiter import FastAPILimiter
 env_path = "../.env"
 load_dotenv(env_path)
 
-REDIS_ENV = os.getenv("REDIS_DATABASE" ,"redis://default:Wls41vwKwXF5zuASsqoDG0mrwJHq82Pz@redis-14078.c325.us-east-1-4.ec2.cloud.redislabs.com:14078")
+REDIS_ENV = os.getenv("REDIS_DATABASE" ,"redis://redis:6379/")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
