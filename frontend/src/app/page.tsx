@@ -41,7 +41,7 @@ const TownData = () => {
   }, []);
 
   if (!townData || !peopleData) {
-    return null; // or a loading indicator
+    return "API Resolution Error!"; // or a loading indicator
   }
 
   return (
