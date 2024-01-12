@@ -1,6 +1,4 @@
-// TownData.tsx
-
-"use client"
+"use client";
 
 import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
@@ -18,7 +16,7 @@ type PeopleRead = {
   id: number;
   name: string;
   gender: string;
-  age: string
+  age: string;
   // Add other fields as needed
 };
 
@@ -28,13 +26,13 @@ const TownData = () => {
 
   useEffect(() => {
     // Fetch town data from your FastAPI endpoint
-    fetch('http://backend:8000/towns/')
+    fetch('http://localhost:8000/towns/')
       .then(response => response.json())
       .then(data => setTownData(data))
       .catch(error => console.error('Error fetching town data:', error));
 
     // Fetch people data from your FastAPI endpoint
-    fetch('http://backend:8000/people/')
+    fetch('http://localhost:8000/people/')
       .then(response => response.json())
       .then(data => setPeopleData(data))
       .catch(error => console.error('Error fetching people data:', error));
@@ -56,30 +54,38 @@ const TownData = () => {
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-4">Town Data</h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {townData.map(town => (
-              <Card key={town.id}>
-                <CardContent className="space-y-2">
-                  <h3 className="text-lg font-semibold">{town.name}</h3>
-                  <p className="text-gray-500 dark:text-gray-400">Population: {town.population}</p>
-                  {/* Add other town-related information here */}
-                </CardContent>
-              </Card>
-            ))}
+            {Array.isArray(townData) ? (
+              townData.map(town => (
+                <Card key={town.id}>
+                  <CardContent className="space-y-2">
+                    <h3 className="text-lg font-semibold">{town.name}</h3>
+                    <p className="text-gray-500 dark:text-gray-400">Population: {town.population}</p>
+                    {/* Add other town-related information here */}
+                  </CardContent>
+                </Card>
+              ))
+            ) : (
+              <p>No town data available</p>
+            )}
           </div>
         </section>
         <section>
           <h2 className="text-xl font-semibold mb-4">People Data</h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {peopleData.map(person => (
-              <Card key={person.id}>
-                <CardContent className="space-y-2">
-                  <h3 className="text-lg font-semibold">{person.name}</h3>
-                  <p className="text-gray-500 dark:text-gray-400">Age: {person.age}</p>
-                  <p className="text-gray-500 dark:text-gray-400">Gender: {person.gender}</p>
-                  {/* Add other person-related information here */}
-                </CardContent>
-              </Card>
-            ))}
+            {Array.isArray(peopleData) ? (
+              peopleData.map(person => (
+                <Card key={person.id}>
+                  <CardContent className="space-y-2">
+                    <h3 className="text-lg font-semibold">{person.name}</h3>
+                    <p className="text-gray-500 dark:text-gray-400">Age: {person.age}</p>
+                    <p className="text-gray-500 dark:text-gray-400">Gender: {person.gender}</p>
+                    {/* Add other person-related information here */}
+                  </CardContent>
+                </Card>
+              ))
+            ) : (
+              <p>No people data available</p>
+            )}
           </div>
         </section>
       </main>
