@@ -2,21 +2,19 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.openapi.utils import get_openapi
 from sqlalchemy.exc import IntegrityError
 
 from api.config import Settings
 from api.database import create_db_and_tables, create_town_and_people, get_db
 from api.public.routes import public_router
 from api.utils import *
+from api.private.routes import privaterouter
 
 import redis.asyncio as redis
-import uvicorn
-from fastapi import Depends, FastAPI
+from fastapi import FastAPI
 from dotenv import load_dotenv
 import os
 from fastapi_limiter import FastAPILimiter
-from fastapi_limiter.depends import RateLimiter
 
 env_path = "../.env"
 load_dotenv(env_path)
@@ -33,13 +31,7 @@ async def lifespan(app: FastAPI):
         create_town_and_people(db)
         yield
     except (IntegrityError, Exception) as e:
-        # Perform any cleanup or teardown operations if needed
         yield
-
-    # # Proceed with the rest of your code
-    # async with self.lifespan_context(app) as maybe_state:
-    #     # Other operations within the lifespan context
-    #     pass
 
 
 def create_app(settings: Settings):
@@ -60,5 +52,6 @@ def create_app(settings: Settings):
         allow_headers=["*"],
     ),
     app.include_router(public_router)
+    app.include_router(privaterouter)
 
     return app
