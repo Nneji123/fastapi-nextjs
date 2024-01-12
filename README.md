@@ -326,10 +326,6 @@ On the [Koyeb Control Panel](//app.koyeb.com/apps), click the **Create App** but
 
 You land on the deployment page where you can follow the build of your docker-compose application. Once the build is completed, your application is being deployed and you will be able to access it via `<YOUR_APP_NAME>-<YOUR_ORG_NAME>.koyeb.app`.
 
-Certainly! Below is a sample section you can include in your README to explain how logging and metrics are handled using Prometheus and Grafana:
-
----
-
 ## Logging and Metrics
 
 ### Prometheus
@@ -366,8 +362,6 @@ Grafana is accessible at [http://localhost:4000](http://localhost:4000) in your 
 ### Metrics and Dashboards
 
 Your FastAPI application is instrumented to expose relevant metrics, which are then visualized in Grafana dashboards. These metrics provide valuable insights into request/response times, error rates, and various aspects of your application's performance.
-
-
 
 ## Pagination
 Pagination using FastAPI-Pagination is implemented in the get all towns and get all people routes.
