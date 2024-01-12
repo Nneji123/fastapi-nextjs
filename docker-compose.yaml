@@ -6,7 +6,7 @@ services:
       context: ./frontend  # Path to your Next.js frontend code
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"  # Expose the Next.js development server port
+      - "8080:8080"  # Expose the Next.js development server port
     depends_on:
       - backend
     networks:
