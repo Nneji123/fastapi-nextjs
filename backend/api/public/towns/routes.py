@@ -1,6 +1,8 @@
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi_pagination import Page, paginate
+from fastapi_pagination.utils import disable_installed_extensions_check
 from sqlalchemy.orm import Session
 from starlette.responses import JSONResponse
 
@@ -21,7 +23,7 @@ from api.public.towns.models import (
 )
 
 router = APIRouter()
-
+disable_installed_extensions_check()
 
 @router.post("/", response_model=TownRead)
 def create_new_town(town: TownCreate, db: Session = Depends(get_db)):
@@ -31,7 +33,7 @@ def create_new_town(town: TownCreate, db: Session = Depends(get_db)):
             content={
                 "status": "success",
                 "msg": "Town created successfully",
-                "data": created_town.dict(),
+                "data": created_town.model_dump(),
             }
         )
     except Exception as e:
@@ -49,9 +51,9 @@ def get_single_town(town_id: int, db: Session = Depends(get_db)):
     return town
 
 
-@router.get("/", response_model=List[TownRead])
+@router.get("/", response_model=Page[TownRead])
 def get_all_towns(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    return get_towns(db, skip=skip, limit=limit)
+    return paginate(get_towns(db, skip=skip, limit=limit))
 
 
 @router.put("/{town_id}", response_model=TownRead)

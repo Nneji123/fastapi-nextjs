@@ -8,8 +8,8 @@ from api.public.towns.routes import router as townrouter
 
 public_router = APIRouter()
 
-@public_router.get("/test/secure", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
-def test_secure_route():
+@public_router.get("/rate_limit", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
+def test_rate_limit():
     return {"Hello": "This is a  rate limited endpoint!"}
 
 

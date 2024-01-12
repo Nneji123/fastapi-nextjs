@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi_pagination import  add_pagination
 from sqlalchemy.exc import IntegrityError
 
 from api.config import Settings
@@ -25,8 +26,8 @@ REDIS_ENV = os.getenv("REDIS_DATABASE" ,"redis://redis:6379/")
 async def lifespan(app: FastAPI):
     db = next(get_db())  # Fetching the database session
     create_db_and_tables()
-    redis_connection= redis.from_url(REDIS_ENV, encoding="utf-8", decode_responses=True)
-    await FastAPILimiter.init(redis_connection)
+    # redis_connection= redis.from_url(REDIS_ENV, encoding="utf-8", decode_responses=True)
+    # await FastAPILimiter.init(redis_connection)
     try:
         create_town_and_people(db)
         yield
@@ -53,5 +54,5 @@ def create_app(settings: Settings):
     ),
     app.include_router(public_router)
     app.include_router(privaterouter)
-
+    add_pagination(app)
     return app

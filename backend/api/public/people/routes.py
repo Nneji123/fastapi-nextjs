@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session
 from starlette.responses import JSONResponse
-
+from fastapi_pagination import Page, paginate
 from api.database import get_db
 from api.public.people.crud import (
     create_person,
@@ -29,9 +29,9 @@ def get_single_person(person_id: int, db: Session = Depends(get_db)):
     return person
 
 
-@router.get("/", response_model=list[PersonRead])
+@router.get("/", response_model=Page[PersonRead])
 def get_all_people(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    return get_people(db, skip=skip, limit=limit)
+    return paginate(get_people(db, skip=skip, limit=limit))
 
 
 @router.post("/", response_model=Person)

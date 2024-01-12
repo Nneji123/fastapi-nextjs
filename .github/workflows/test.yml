@@ -17,8 +17,9 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Run Tests      
+      - name: Run Tests
         run: |
           echo "${{ secrets.ENV_FILE }}" > .env
+          cd backend
           pip install -r api/requirements.txt && python api/init_db.py
-          pytest tests/test_towns.py 
+          pytest tests/test_towns.py

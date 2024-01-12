@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, List, Optional
 
-from sqlalchemy.orm import relationship
 from sqlmodel import Field, Relationship, SQLModel
+
 
 if TYPE_CHECKING:
     from api.public.people.models import Person
