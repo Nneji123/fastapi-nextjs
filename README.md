@@ -291,11 +291,88 @@ This endpoint is configured to limit the number of requests to 2 every 5 seconds
 
 </details>
 
+## Deployment
+For deployment I used Koyeb. Koyeb is a developer-friendly serverless platform to deploy apps globally. No-ops, servers, or infrastructure management. You can learn more about it here: `https://www.koyeb.com/tutorials/deploy-apps-using-docker-compose-on-koyeb`
 
-### Pagination
+Follow the steps below to deploy and run the docker-compose application on your Koyeb account.
+
+### Requirements
+
+You need a Koyeb account to successfully deploy and run this application. If you don't already have an account, you can sign-up for free [here](https://app.koyeb.com/auth/signup).
+
+### Deploy using the Koyeb button
+
+The fastest way to deploy the docker-compose application is to click the **Deploy to Koyeb** button below.
+
+[![Deploy to Koyeb](https://www.koyeb.com/static/images/deploy/button.svg)](https://app.koyeb.com/deploy?name=fastapi-nextjs&privileged=true&type=git&repository=koyeb/example-docker-compose&branch=main&builder=dockerfile&dockerfile=Dockerfile.koyeb)
+
+Clicking on this button brings you to the Koyeb App creation page with everything pre-set to launch this application.
+
+### Fork and deploy to Koyeb
+
+If you want to customize and enhance this application, you need to fork this repository.
+
+If you used the **Deploy to Koyeb** button, you can simply link your service to your forked repository to be able to push changes.
+Alternatively, you can manually create the application as described below.
+
+On the [Koyeb Control Panel](//app.koyeb.com/apps), click the **Create App** button to go to the App creation page.
+
+1. Select `GitHub` as the deployment method to use
+2. In the repositories list, select the repository you just forked
+3. Specify the branch to deploy, in this case `main`
+4. Set the `Dockerfile location` to `Dockerfile.koyeb`
+5. Set the `privileged` flag
+6. Then, give your App a name, i.e `docker-compose-on-koyeb`, and click **Create App.**
+
+You land on the deployment page where you can follow the build of your docker-compose application. Once the build is completed, your application is being deployed and you will be able to access it via `<YOUR_APP_NAME>-<YOUR_ORG_NAME>.koyeb.app`.
+
+Certainly! Below is a sample section you can include in your README to explain how logging and metrics are handled using Prometheus and Grafana:
+
+---
+
+## Logging and Metrics
+
+### Prometheus
+
+[Prometheus](https://prometheus.io/) is used to collect and store metrics from your FastAPI application. It gathers data from various services and components, providing insights into the performance and behavior of your application.
+
+#### Configuration
+
+The Prometheus configuration is defined in the `prometheus_data/prometheus.yml` file. Make sure to customize this file based on your application's specific metrics and requirements.
+
+#### Accessing Prometheus
+
+Prometheus can be accessed at [http://localhost:9090](http://localhost:9090) in your local development environment.
+
+### Grafana
+
+[Grafana](https://grafana.com/) is utilized for visualizing and analyzing the metrics collected by Prometheus. It offers powerful tools for creating dashboards and monitoring the health of your application.
+
+#### Configuration
+
+No specific Grafana configuration is needed for basic functionality. However, you can customize Grafana settings and dashboards based on your monitoring needs.
+
+To learn more about this you can read this article: https://dev.to/ken_mwaura1/getting-started-monitoring-a-fastapi-app-with-grafana-and-prometheus-a-step-by-step-guide-3fbn
+
+#### Accessing Grafana
+
+Grafana is accessible at [http://localhost:4000](http://localhost:4000) in your local development environment.
+
+#### Default Credentials
+
+- **Username:** admin
+- **Password:** admin
+
+### Metrics and Dashboards
+
+Your FastAPI application is instrumented to expose relevant metrics, which are then visualized in Grafana dashboards. These metrics provide valuable insights into request/response times, error rates, and various aspects of your application's performance.
+
+
+
+## Pagination
 Pagination using FastAPI-Pagination is implemented in the get all towns and get all people routes.
 
-### Testing
+## Testing
 1. To run tests with in-memory SQLite database:
 ```
 cd backend
@@ -326,7 +403,32 @@ pytest tests
 18. [ ] Logging with Prometheus and Grafana
 
 ## References
+Certainly! Here are five FastAPI repositories with their names and links:
 
+1. **Fast-Api-Grafana-Starter**
+   - [Repository Link](https://github.com/KenMwaura1/Fast-Api-Grafana-Starter)
+
+2. **prometheus-fastapi-instrumentator**
+   - [Repository Link](https://github.com/trallnag/prometheus-fastapi-instrumentator)
+
+3. **fastapi-keycloak**
+   - [Repository Link](https://github.com/code-specialist/fastapi-keycloak)
+Certainly! Here are five more FastAPI repositories with their names and links:
+
+4. **propelauth-fastapi**
+   - [Repository Link](https://github.com/PropelAuth/propelauth-fastapi)
+
+5. **Shortify**
+   - [Repository Link](https://github.com/IHosseini083/Shortify)
+
+6. **fastapi-beanie-jwt**
+   - [Repository Link](https://github.com/flyinactor91/fastapi-beanie-jwt)
+
+7. **fastapi-best-practices**
+   - [Repository Link](https://github.com/zhanymkanov/fastapi-best-practices)
+
+8. **fastapi-sqlmodel-alembic**
+    - [Repository Link](https://github.com/testdrivenio/fastapi-sqlmodel-alembic)
 
 ## License
 This project is licensed under the MIT LICENSE - see the [LICENSE](./LICENSE) file for details.

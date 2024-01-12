@@ -9,8 +9,7 @@ from api.config import Settings
 from api.database import create_db_and_tables, create_town_and_people, get_db
 from api.public.routes import public_router
 from api.utils import *
-from api.private.routes import privaterouter
-
+from prometheus_fastapi_instrumentator import Instrumentator
 import redis.asyncio as redis
 from fastapi import FastAPI
 from dotenv import load_dotenv
@@ -26,8 +25,8 @@ REDIS_ENV = os.getenv("REDIS_DATABASE" ,"redis://redis:6379/")
 async def lifespan(app: FastAPI):
     db = next(get_db())  # Fetching the database session
     create_db_and_tables()
-    # redis_connection= redis.from_url(REDIS_ENV, encoding="utf-8", decode_responses=True)
-    # await FastAPILimiter.init(redis_connection)
+    redis_connection= redis.from_url(REDIS_ENV, encoding="utf-8", decode_responses=True)
+    await FastAPILimiter.init(redis_connection)
     try:
         create_town_and_people(db)
         yield
@@ -53,6 +52,6 @@ def create_app(settings: Settings):
         allow_headers=["*"],
     ),
     app.include_router(public_router)
-    app.include_router(privaterouter)
+    Instrumentator().instrument(app).expose(app)
     add_pagination(app)
     return app
