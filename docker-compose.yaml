@@ -28,15 +28,23 @@ services:
       - REDIS_URL=redis://redis:6379/  # Update with your Redis connection details
 
   postgres:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: dbname
+    image: bitnami/postgresql:13.3.0
+    restart: always
+    container_name: postgres
+    # env_file: ".env"
+    # user: root
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - my-network
+    ports:
+      - 5454:5432 # Remove this on production
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USERNAME=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DATABASE=dbname
 
   redis:
     image: redis:latest
@@ -58,7 +66,7 @@ services:
     image: grafana/grafana
     container_name: grafana
     ports:
-      - 4000:4000
+      - 8080:8080
     volumes:
       - grafana_data:/var/lib/grafana
 

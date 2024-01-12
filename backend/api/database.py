@@ -9,8 +9,9 @@ from api.public.people.models import PersonCreate
 from api.public.towns.crud import create_town
 from api.public.towns.models import TownCreate
 
-connect_args = {"check_same_thread": False}
-engine = create_engine(settings.DATABASE_URI, echo=False, connect_args=connect_args)
+# connect_args = {"check_same_thread": False}
+
+engine = create_engine(settings.DATABASE_URI, echo=False)
 
 
 def create_db_and_tables():

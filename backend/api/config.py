@@ -16,11 +16,11 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = (
         f"Webscraper API - {os.getenv('ENV', 'development').capitalize()}"
     )
-    DESCRIPTION: str = "A Google Maps Webscraper API Built with FastAPI and SQLModel"
+    DESCRIPTION: str = "FastAPI + Nextjs Example"
     ENV: Literal["development", "staging", "production"] = "development"
     VERSION: str = "0.1"
     SECRET_KEY: str = secrets.token_urlsafe(32)
-    DATABASE_URI: str = os.getenv("DATABASE_URI", "sqlite:///./database.db")
+    DATABASE_URI: str = os.getenv("DATABASE_URI", "postgresql://user:password@postgres:5432/dbname")
 
     class Config:
         case_sensitive = True

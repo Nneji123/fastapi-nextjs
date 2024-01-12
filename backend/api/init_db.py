@@ -23,7 +23,6 @@ def create_database_for_tests():
     try:
         create_town_and_people(db)
     except (IntegrityError, Exception) as e:
-        # Perform any cleanup or teardown operations if needed
         print(e)
         pass
 

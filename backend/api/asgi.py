@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-
+import time
 import uvicorn
 
 # Get the absolute path of the directory containing this script
@@ -16,4 +16,5 @@ from api.config import settings
 api = create_app(settings)
 
 if __name__ == "__main__":
+    time.sleep(10)
     uvicorn.run("asgi:api", host="0.0.0.0", port=8000, reload=True)
