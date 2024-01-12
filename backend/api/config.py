@@ -14,7 +14,7 @@ def load_env():
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = (
-        f"Webscraper API - {os.getenv('ENV', 'development').capitalize()}"
+        f"FastAPI Server - {os.getenv('ENV', 'development').capitalize()}"
     )
     DESCRIPTION: str = "FastAPI + Nextjs Example"
     ENV: Literal["development", "staging", "production"] = "development"
